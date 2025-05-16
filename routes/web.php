@@ -63,7 +63,7 @@ Route::get('/modifier-etudiant/{id}', [EtudiantController::class, 'modifier_etud
 Route::post('/modifier/traitement', [EtudiantController::class, 'modifier_etudiant_traitement'])->name('etudiant.modifier_traitement');
 
 // Supprimer un étudiant
-Route::get('/supprimer-etudiant/{id}', [EtudiantController::class, 'supprimer_etudiant'])->name('etudiant.supprimer');
+Route::delete('/supprimer-etudiant/{id}', [EtudiantController::class, 'supprimer_etudiant'])->name('etudiant.supprimer');
 
 //Photos
 Route::get('/etudiants', [EtudiantController::class, 'index'])->name('etudiants.index');
@@ -121,3 +121,126 @@ Route::get('/contact', function () {
 // });
 
 // require __DIR__ . '/auth.php'; // Routes d'authentification
+
+// <?php
+
+
+// use Illuminate\Support\Facades\Route;
+// use App\Http\Controllers\Admin\StudentController;
+// use App\Http\Controllers\Auth\RegisteredUserController;
+// use App\Http\Controllers\Auth\AuthenticatedSessionController;
+// use App\Http\Controllers\ProfileController;
+// use App\Http\Controllers\HomeController;
+// use Illuminate\Support\Facades\Auth;
+// use App\Http\Controllers\Admin\DashboardControllers;
+// use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+
+// /*
+// |--------------------------------------------------------------------------
+// | Web Routes
+// |--------------------------------------------------------------------------
+// | Ireto rehetra ireto dia routes ampiasain'ny navigateur (interface web).
+// | Izy ireo dia voasokajy araka ny login, register, dashboard, admin, sy profil.
+// |--------------------------------------------------------------------------
+// */
+
+// /*
+// |--------------------------------------------------------------------------
+// | Auth Routes (Login, Register, Logout)
+// |--------------------------------------------------------------------------
+// */
+
+// // routes utilisateur
+// Route::get('/create-test-user', function () {
+//     return App\Models\User::create([
+//         'firstname' => 'Admin',
+//         'lastname' => 'Test',
+//         'email' => 'admin@test.com',
+//         'password' => bcrypt('password'),
+//         'role' => 'admin'
+//     ]);
+// });
+
+// // Routes publiques
+// Auth::routes();
+
+// // Routes utilisateur
+// Route::middleware(['auth', 'verified'])->group(function () {
+//     Route::get('/home', [HomeController::class, 'index'])->name('user.dashboard');
+// });
+
+// // Routes admin
+// Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+//     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+// });
+
+// // Formulaire d'inscription
+// Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
+// // Traitement de l'inscription
+// Route::post('register', [RegisteredUserController::class, 'store']);
+
+// // Formulaire de connexion
+// Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
+// // Traitement de la connexion
+// Route::post('login', [AuthenticatedSessionController::class, 'store']);
+
+// // Déconnexion
+// Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+// /*
+// |--------------------------------------------------------------------------
+// | Accueil (public)
+// |--------------------------------------------------------------------------
+// */
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+// /*
+// |--------------------------------------------------------------------------
+// | Tableau de bord (dashboard)
+// |--------------------------------------------------------------------------
+// | Accessible uniquement après authentification + email vérifié.
+// */
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
+
+// /*
+// |--------------------------------------------------------------------------
+// | Routes pour Admin (gestion des étudiants)
+// |--------------------------------------------------------------------------
+// | Toutes ces routes sont accessibles uniquement après connexion.
+// */
+// Route::middleware('auth')->prefix('admin')->group(function () {
+//     // Ex: /admin/students
+//     Route::resource('/students', StudentController::class);
+//     //crude
+//     Route::prefix('admin')->group(function () {
+//         Route::resource('students', \App\Http\Controllers\Admin\StudentController::class);
+//     });
+
+
+//     // Route::resource('/roles', RoleController::class);
+//     // Route::resource('/permissions', PermissionController::class);
+// });
+
+// // routes amin
+// Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
+//     Route::resource('students', \App\Http\Controllers\Admin\StudentController::class)
+//         ->only(['create', 'store']);
+// });
+
+// /*
+// |--------------------------------------------------------------------------
+// | Routes pour la gestion du profil
+// |--------------------------------------------------------------------------
+// */
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
+
+// // Autres routes définies dans auth.php (si il y en a)
+// require __DIR__ . '/auth.php';

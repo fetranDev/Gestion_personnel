@@ -78,8 +78,11 @@ class etudiantController extends Controller
 
     public function modifier_etudiant($id)
     {
-        $etudiants = Etudiant::find($id);
-        return view('etudiant.modifier', compact('etudiants'));
+        $etudiant = Etudiant::find($id);
+        if (!$etudiant) {
+            return redirect()->route('etudiant.liste')->with('status', 'Étudiant introuvable.');
+        }
+        return view('etudiant.modifier', ['etudiants' => $etudiant]);
     }
 
     public function modifier_etudiant_traitement(Request $request)
